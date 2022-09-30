@@ -11,26 +11,40 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool useLayers = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Use Layers:'),
+          Checkbox(
+              value: useLayers,
+              onChanged: (v) => setState(() {
+                    useLayers = v!;
+                  })),
+        ],
+      ),
       body: CustomPaint(
         size: MediaQuery.of(context).size,
-        painter: Painter(),
+        painter: Painter(useLayers),
       ),
     );
   }
